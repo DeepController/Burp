@@ -23,6 +23,9 @@ class LoginViewController: UIViewController {
 	}
 	
 	
+	// MARK: SegueControl
+	
+	
 	// MARK: - SceneControl
     override func viewDidLoad() {
         super.viewDidLoad()
