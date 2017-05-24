@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Burp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="Burp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -108,12 +108,16 @@
                                         <rect key="frame" x="0.0" y="388" width="343" height="129.5"/>
                                         <state key="normal" title="Login"/>
                                         <connections>
+                                            <action selector="LoginPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VZA-sR-hx3"/>
                                             <segue destination="NMl-tY-bl5" kind="show" id="HHo-GJ-66g"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y0w-wI-WC1">
                                         <rect key="frame" x="0.0" y="517.5" width="343" height="129.5"/>
                                         <state key="normal" title="Signup"/>
+                                        <connections>
+                                            <action selector="SignUpPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AJO-cZ-AP9"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -144,6 +148,10 @@
                             <constraint firstAttribute="trailingMargin" secondItem="N2c-Sh-A3S" secondAttribute="trailing" id="pL6-Fs-SdF"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="AccountTextField" destination="Uen-Qx-Jt1" id="T7c-W1-2GT"/>
+                        <outlet property="PasswordTextField" destination="Kdc-6D-Kcd" id="yRa-mF-d5n"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
