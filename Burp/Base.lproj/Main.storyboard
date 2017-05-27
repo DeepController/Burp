@@ -48,7 +48,7 @@
                                                         <rect key="frame" x="0.0" y="90.5" width="171.5" height="39"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
@@ -76,7 +76,7 @@
                                                         <rect key="frame" x="0.0" y="90.5" width="171.5" height="38.5"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
