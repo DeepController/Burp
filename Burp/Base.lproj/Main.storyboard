@@ -36,16 +36,16 @@
                                         <rect key="frame" x="86" y="129.5" width="171.5" height="258.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0pf-6t-y3j" userLabel="Account View">
-                                                <rect key="frame" x="0.0" y="0.0" width="171.5" height="129.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="171.5" height="129"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSg-U2-UvZ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="171.5" height="90.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="171.5" height="91"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uen-Qx-Jt1">
-                                                        <rect key="frame" x="0.0" y="90.5" width="171.5" height="39"/>
+                                                        <rect key="frame" x="0.0" y="91" width="171.5" height="38"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -64,16 +64,16 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pxQ-aJ-pHE" userLabel="Password View">
-                                                <rect key="frame" x="0.0" y="129.5" width="171.5" height="129"/>
+                                                <rect key="frame" x="0.0" y="129" width="171.5" height="129.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWD-nR-d0K">
-                                                        <rect key="frame" x="0.0" y="0.0" width="171.5" height="90.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="171.5" height="91"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kdc-6D-Kcd">
-                                                        <rect key="frame" x="0.0" y="90.5" width="171.5" height="38.5"/>
+                                                        <rect key="frame" x="0.0" y="91" width="171.5" height="38.5"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
@@ -160,38 +160,59 @@
         <!--Add Ingredients-->
         <scene sceneID="jmJ-TJ-ud1">
             <objects>
-                <tableViewController id="FzN-dU-kQj" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" id="3mj-el-Aoy">
+                <tableViewController id="FzN-dU-kQj" customClass="AddIngredientsTableViewController" customModule="Burp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="96" sectionHeaderHeight="28" sectionFooterHeight="28" id="3mj-el-Aoy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="1sH-rZ-Rj2">
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="1jk-Xx-Fdz">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="FzN-dU-kQj" id="2HC-MI-dd0"/>
+                            </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="75" id="POd-Rr-zmb">
-                                <rect key="frame" x="0.0" y="72" width="375" height="75"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IngredientCell" rowHeight="96" id="POd-Rr-zmb" customClass="IngredientsCell" customModule="Burp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="POd-Rr-zmb" id="vSF-Zm-h7Q">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="95.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chicken" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wX0-Gf-1Yq">
-                                            <rect key="frame" x="30" y="19" width="128" height="45"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wX0-Gf-1Yq">
+                                            <rect key="frame" x="114" y="37.5" width="42" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Avz-vP-6uU">
-                                            <rect key="frame" x="311" y="26" width="46" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5ZK-CL-baw" userLabel="IngredientPic">
+                                            <rect key="frame" x="18" y="7" width="80" height="80"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="Rbe-Hd-46G"/>
+                                                <constraint firstAttribute="height" constant="80" id="jM1-SO-Toi"/>
+                                            </constraints>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Avz-vP-6uU">
+                                            <rect key="frame" x="326" y="32" width="30" height="30"/>
                                             <state key="normal" title="Add"/>
                                         </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="wX0-Gf-1Yq" firstAttribute="centerY" secondItem="vSF-Zm-h7Q" secondAttribute="centerY" id="Qfh-D8-Vuj"/>
+                                        <constraint firstItem="wX0-Gf-1Yq" firstAttribute="leading" secondItem="5ZK-CL-baw" secondAttribute="trailing" constant="16" id="Sp5-gW-kDe"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Avz-vP-6uU" secondAttribute="trailing" constant="11" id="aoN-n8-chb"/>
+                                        <constraint firstItem="Avz-vP-6uU" firstAttribute="centerY" secondItem="vSF-Zm-h7Q" secondAttribute="centerY" id="bXi-MY-aHh"/>
+                                        <constraint firstItem="5ZK-CL-baw" firstAttribute="leading" secondItem="vSF-Zm-h7Q" secondAttribute="leading" constant="18" id="bt0-MB-fxZ"/>
+                                        <constraint firstItem="5ZK-CL-baw" firstAttribute="centerY" secondItem="vSF-Zm-h7Q" secondAttribute="centerY" id="pkJ-iq-oU9"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addButton" destination="Avz-vP-6uU" id="VfY-PY-Vmv"/>
+                                    <outlet property="name" destination="wX0-Gf-1Yq" id="CHS-7l-mR3"/>
+                                    <outlet property="pic" destination="5ZK-CL-baw" id="kWj-NO-Jn1"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -206,8 +227,21 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="ZCc-xq-Egu" id="8gf-fK-M5j"/>
+                        <outlet property="tableView" destination="3mj-el-Aoy" id="23J-rF-7TR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wwh-tR-Q94" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="ZCc-xq-Egu">
+                    <connections>
+                        <outlet property="delegate" destination="FzN-dU-kQj" id="4bD-T8-iYG"/>
+                        <outlet property="searchBar" destination="1jk-Xx-Fdz" id="fda-Bg-rDq"/>
+                        <outlet property="searchContentsController" destination="FzN-dU-kQj" id="mo3-BM-9IC"/>
+                        <outlet property="searchResultsDataSource" destination="FzN-dU-kQj" id="WdH-qM-7Rc"/>
+                        <outlet property="searchResultsDelegate" destination="FzN-dU-kQj" id="r1i-UL-EEr"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="853.60000000000002" y="741.67916041979015"/>
         </scene>
