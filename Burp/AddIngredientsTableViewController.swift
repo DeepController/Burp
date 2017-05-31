@@ -15,6 +15,7 @@ class AddIngredientsTableViewController: UIViewController, UITableViewDelegate, 
 	
 	// MARK: - Fields
 	let cellReuseIdentifier = "IngredientCell"
+	var ingDataCollection = [ingData]()
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class AddIngredientsTableViewController: UIViewController, UITableViewDelegate, 
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 		tableView.delegate = self
 		tableView.dataSource = self
+		askServer(query: "appl")
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,6 +38,37 @@ class AddIngredientsTableViewController: UIViewController, UITableViewDelegate, 
     // MARK: - Table view data source
 
 	
+	// MARK: - Retrieve Data
+	fileprivate func askServer(query : String) {
+		var request = URLRequest(url: URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/food/ingredients/autocomplete?metaInformation=false&number=10&query=\(query)")!)
+		request.httpMethod = "GET"
+//		let postString = ""
+//		request.httpBody = postString.data(using: .utf8)
+		request.addValue("vxPA0uhUCXmshjiEBrQ1Dgu6pP2dp126FVcjsngqOvVZln3jt9", forHTTPHeaderField: "X-Mashape-Key")
+		request.addValue("application/json", forHTTPHeaderField: "Accept")
+		let task = URLSession.shared.dataTask(with: request) { data, response, error in
+			guard let data = data, error == nil else {
+				// check for fundamental networking error
+				print("error=\(String(describing: error))")
+				return
+			}
+			
+			if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+				// check for http errors
+				print("statusCode should be 200, but is \(httpStatus.statusCode)")
+				print("response = \(String(describing: response))")
+			}
+			
+			let JSONobject = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
+			let questions = JSONobject as? [Any]
+			self.ingDataCollection.removeAll(keepingCapacity: false)
+			for question in questions! {
+				self.ingDataCollection.append(ingData(json: question as! [String:Any])!)
+			}
+
+		}
+		task.resume()
+	}
 	
 	// number of rows in table view
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,6 +81,7 @@ class AddIngredientsTableViewController: UIViewController, UITableViewDelegate, 
 		let cell:IngredientsCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as! IngredientsCell
 		
 		// Configure the cell...
+		
 		
 		return cell
 	}
