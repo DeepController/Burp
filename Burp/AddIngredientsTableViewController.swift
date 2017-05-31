@@ -35,6 +35,7 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 		tableView.dataSource = self
 		configureSearchController()
 		searchController.isActive = true
+		searchController.searchBar.becomeFirstResponder()
 		cacheImageURL = try! FileManager().url(for: .cachesDirectory,
 		                                  in: .userDomainMask,
 		                                  appropriateFor: nil,
@@ -128,14 +129,14 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 	//
 	
 	func configureSearchController() {
-		// 初始化搜索控制器，并且进行最小化的配置
+		// initialize search bar
 		searchController = UISearchController(searchResultsController: nil)
 		searchController.dimsBackgroundDuringPresentation = true
 		searchController.searchBar.placeholder = "Search"
 		searchController.searchBar.delegate = self
 		searchController.searchBar.sizeToFit()
 		
-		// 放置 搜索条在 tableView的头部视图中
+		// put search bar at the top of the table view
 		tableView.tableHeaderView = searchController.searchBar
 	}
 	
