@@ -10,11 +10,15 @@ import UIKit
 
 class IngredientsCell: UITableViewCell {
 	
-	// MARK: - Fields
+	// MARK: - UIElements
 	
 	@IBOutlet weak var name: UILabel!
 	@IBOutlet weak var pic: UIImageView!
 	@IBOutlet weak var addButton: UIButton!
+	
+	// MARK: - Fields
+	
+	
 	
 	// MARK: - Functions
     override func awakeFromNib() {
