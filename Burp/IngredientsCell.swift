@@ -16,10 +16,6 @@ class IngredientsCell: UITableViewCell {
 	@IBOutlet weak var pic: UIImageView!
 	@IBOutlet weak var addButton: UIButton!
 	
-	// MARK: - Fields
-	
-	
-	
 	// MARK: - Functions
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,5 +27,4 @@ class IngredientsCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

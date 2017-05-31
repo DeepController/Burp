@@ -15,12 +15,7 @@ struct ingData {
 
 extension ingData {
 	init?(json: [String : Any]) {
-		self.quizTitle = json["title"] as! String
-		self.quizDesc = json["desc"] as! String
-		let arr = json["questions"] as! [Any]
-		for question in arr {
-			let dict = question as! [String:Any]
-			self.questionArr.append(quizItem.init(json: dict)!)
-		}
+		self.name = json["name"] as! String
+		self.picName = json["image"] as! String
 	}
 }
