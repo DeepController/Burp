@@ -16,6 +16,7 @@
 		3DB3CCB11ECE365A00EA9E12 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DB3CCAF1ECE365A00EA9E12 /* Main.storyboard */; };
 		3DB3CCB31ECE365A00EA9E12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DB3CCB21ECE365A00EA9E12 /* Assets.xcassets */; };
 		3DB3CCB61ECE365A00EA9E12 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DB3CCB41ECE365A00EA9E12 /* LaunchScreen.storyboard */; };
+		3DD75DEC1EDF658400BADBB4 /* IngredienSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD75DEB1EDF658400BADBB4 /* IngredienSearchController.swift */; };
 		3DFECFC21ED6003400EA4BA3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFECFC11ED6003400EA4BA3 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		3DB3CCB21ECE365A00EA9E12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DB3CCB51ECE365A00EA9E12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DB3CCB71ECE365A00EA9E12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DD75DEB1EDF658400BADBB4 /* IngredienSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredienSearchController.swift; sourceTree = "<group>"; };
 		3DFECFC11ED6003400EA4BA3 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +71,7 @@
 				3DB3CCAF1ECE365A00EA9E12 /* Main.storyboard */,
 				3DFECFC11ED6003400EA4BA3 /* LoginViewController.swift */,
 				3D46453A1EDCD92D00878363 /* AddIngredientsTableViewController.swift */,
+				3DD75DEB1EDF658400BADBB4 /* IngredienSearchController.swift */,
 				3D46453C1EDCDD9400878363 /* IngredientsCell.swift */,
 				3D680BA21EDE40820003C874 /* IngredientData.swift */,
 				3D4CCA841ED51DE6002D54B0 /* RecipeDetailViewController.swift */,
@@ -153,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DFECFC21ED6003400EA4BA3 /* LoginViewController.swift in Sources */,
+				3DD75DEC1EDF658400BADBB4 /* IngredienSearchController.swift in Sources */,
 				3DB3CCAE1ECE365A00EA9E12 /* ViewController.swift in Sources */,
 				3D680BA31EDE40820003C874 /* IngredientData.swift in Sources */,
 				3D4CCA851ED51DE6002D54B0 /* RecipeDetailViewController.swift in Sources */,

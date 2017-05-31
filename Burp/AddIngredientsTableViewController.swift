@@ -17,10 +17,16 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 	// MARK: - Fields
 	let cellReuseIdentifier = "IngredientCell"
 	var ingDataCollection = [ingData]()
+	var cacheImageURL : URL? = nil
+	var resultSearchController = UISearchController()
+	
+	//
+	// MARK: - View Control
+	//
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-
+		
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -29,6 +35,10 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 		tableView.delegate = self
 		tableView.dataSource = self
 		search.delegate = self
+		cacheImageURL = try! FileManager().url(for: .cachesDirectory,
+		                                  in: .userDomainMask,
+		                                  appropriateFor: nil,
+		                                  create: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,9 +46,9 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
         // Dispose of any resources that can be recreated.
     }
 	
-	/**
-	 * MARK: - Retrieve Data
-	 */
+	//
+	// MARK: - Retrieve Data
+	//
 	
 	fileprivate func searchIngredient(ofName name : String) {
 		let query = name.replacingOccurrences(of: " ", with: "+")
@@ -64,14 +74,17 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 			self.ingDataCollection.removeAll(keepingCapacity: false)
 			for ing in ingList! {
 				let ingObject = ingData(json: ing as! [String:Any])!
-				self.downloadIngredientImage(ofName: ingObject.picName)
+//				self.downloadIngredientImage(ofName: ingObject.picName)
 				self.ingDataCollection.append(ingObject)
+			}
+			OperationQueue.main.addOperation {
+				self.tableView.reloadData()
 			}
 		}
 		task.resume()
 	}
 	
-	fileprivate func downloadIngredientImage(ofName name : String) {
+	fileprivate func downloadIngredientImage(ofName name : String, cell : IngredientsCell) {
 		let source = "https://spoonacular.com/cdn/ingredients_100x100/\(name)"
 		let requestURL = URL(string: source)!
 		let sessionConfig = URLSessionConfiguration.default
@@ -81,13 +94,27 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 		let task = session.downloadTask(with: request) { (location, response, error) in
 			if let location = location, error == nil {
 				let locationPath = location.path
-				let cache = NSHomeDirectory() + "/Caches/\(name)"
+				let cache = NSHomeDirectory() + "/Library/Caches/\(name)"
+//				let cacheDirect = NSHomeDirectory() + "/Library/Caches"
+//				var isDir : ObjCBool = true
 				let fileManager = FileManager.default
+//				print("tmp file exist? \(fileManager.fileExists(atPath: locationPath))")
+//				print("cache directory exist? \(fileManager.fileExists(atPath: cacheDirect, isDirectory: &isDir))")
+//				print("cache file exist? \(fileManager.fileExists(atPath: cache))")
 				do {
 					try fileManager.moveItem(atPath: locationPath, toPath: cache)
-				} catch {
-					try! fileManager.removeItem(atPath: cache)
-					try! fileManager.moveItem(atPath: locationPath, toPath: cache)
+				} catch CocoaError.fileWriteFileExists {
+//					if (FileManager.default.fileExists(atPath: cache)) {
+//						try! fileManager.removeItem(atPath: cache)
+//						try! fileManager.moveItem(atPath: locationPath, toPath: cache)
+//					}
+				} catch let error as NSError {
+					print("Error: \(error.domain)")
+				}
+				DispatchQueue.main.async {
+					cell.imageView?.image = UIImage(contentsOfFile: cache)
+					cell.setNeedsLayout() //invalidate current layout
+					cell.layoutIfNeeded() //update immediately
 				}
 			} else {
 				print("Fail to download cache image")
@@ -96,29 +123,34 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 		task.resume()
 	}
 	
-	/**
-	 * MARK: - Search Bar Configuration
-	 */
+	//
+	// MARK: - Search Bar Configuration
+	//
 	
 	override func touchesBegan(_ touches:Set<UITouch>, with event:UIEvent?) {
-		search.resignFirstResponder()
+//		search.resignFirstResponder()
 	}
 	
 	func searchBarSearchButtonClicked(_ searchBar : UISearchBar) {
-		if searchBar.text != nil {
+		let isEmpty = searchBar.text?.range(of: "^[ /s]*$", options: .regularExpression, range: nil, locale: nil) != nil
+
+		if !isEmpty {
+//			print("searching")
 			searchIngredient(ofName: searchBar.text!)
+			search.resignFirstResponder()
 		} else {
+//			print("poping alert")
 			super.popAlert(content: "Please enter non-empty query!")
 		}
 	}
 	
-	/**
-	 * MARK: - Table view Configuration
-	 */
+	//
+	// MARK: - Table view Configuration
+	//
 	
 	// number of rows in table view
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 10
+		return ingDataCollection.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -127,7 +159,12 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 		let cell:IngredientsCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as! IngredientsCell
 		
 		// Configure the cell...
-		
+		let currentIngredientData = ingDataCollection[indexPath.row]
+		cell.name.text = currentIngredientData.name
+		cell.imageView?.image = nil
+		downloadIngredientImage(ofName: currentIngredientData.picName, cell: cell)
+//		let fileURL = cacheImageURL.appendingPathComponent(currentIngredientData.picName)
+//		cell.imageView?.image = UIImage(data: try! Data(contentsOf: fileURL))
 		
 		return cell
 	}
