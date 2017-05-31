@@ -8,10 +8,11 @@
 
 import UIKit
 
-class AddIngredientsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
 	// MARK: - UIElements
 	@IBOutlet var tableView: UITableView!
+	@IBOutlet weak var search: UISearchBar!
 	
 	// MARK: - Fields
 	let cellReuseIdentifier = "IngredientCell"
@@ -27,23 +28,22 @@ class AddIngredientsTableViewController: UIViewController, UITableViewDelegate, 
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 		tableView.delegate = self
 		tableView.dataSource = self
-		askServer(query: "appl")
+		search.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Table view data source
-
 	
-	// MARK: - Retrieve Data
-	fileprivate func askServer(query : String) {
+	/**
+	 * MARK: - Retrieve Data
+	 */
+	
+	fileprivate func searchIngredient(ofName name : String) {
+		let query = name.replacingOccurrences(of: " ", with: "+")
 		var request = URLRequest(url: URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/food/ingredients/autocomplete?metaInformation=false&number=10&query=\(query)")!)
 		request.httpMethod = "GET"
-//		let postString = ""
-//		request.httpBody = postString.data(using: .utf8)
 		request.addValue("vxPA0uhUCXmshjiEBrQ1Dgu6pP2dp126FVcjsngqOvVZln3jt9", forHTTPHeaderField: "X-Mashape-Key")
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
 		let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -60,15 +60,61 @@ class AddIngredientsTableViewController: UIViewController, UITableViewDelegate, 
 			}
 			
 			let JSONobject = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
-			let questions = JSONobject as? [Any]
+			let ingList = JSONobject as? [Any]
 			self.ingDataCollection.removeAll(keepingCapacity: false)
-			for question in questions! {
-				self.ingDataCollection.append(ingData(json: question as! [String:Any])!)
+			for ing in ingList! {
+				let ingObject = ingData(json: ing as! [String:Any])!
+				self.downloadIngredientImage(ofName: ingObject.picName)
+				self.ingDataCollection.append(ingObject)
 			}
-
 		}
 		task.resume()
 	}
+	
+	fileprivate func downloadIngredientImage(ofName name : String) {
+		let source = "https://spoonacular.com/cdn/ingredients_100x100/\(name)"
+		let requestURL = URL(string: source)!
+		let sessionConfig = URLSessionConfiguration.default
+		let session = URLSession(configuration: sessionConfig)
+		let request = URLRequest(url: requestURL)
+		
+		let task = session.downloadTask(with: request) { (location, response, error) in
+			if let location = location, error == nil {
+				let locationPath = location.path
+				let cache = NSHomeDirectory() + "/Caches/\(name)"
+				let fileManager = FileManager.default
+				do {
+					try fileManager.moveItem(atPath: locationPath, toPath: cache)
+				} catch {
+					try! fileManager.removeItem(atPath: cache)
+					try! fileManager.moveItem(atPath: locationPath, toPath: cache)
+				}
+			} else {
+				print("Fail to download cache image")
+			}
+		}
+		task.resume()
+	}
+	
+	/**
+	 * MARK: - Search Bar Configuration
+	 */
+	
+	override func touchesBegan(_ touches:Set<UITouch>, with event:UIEvent?) {
+		search.resignFirstResponder()
+	}
+	
+	func searchBarSearchButtonClicked(_ searchBar : UISearchBar) {
+		if searchBar.text != nil {
+			searchIngredient(ofName: searchBar.text!)
+		} else {
+			super.popAlert(content: "Please enter non-empty query!")
+		}
+	}
+	
+	/**
+	 * MARK: - Table view Configuration
+	 */
 	
 	// number of rows in table view
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
