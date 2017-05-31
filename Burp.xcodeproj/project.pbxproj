@@ -45,13 +45,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3D680BA51EDE4B930003C874 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Images;
-			sourceTree = "<group>";
-		};
 		3DB3CC9F1ECE365A00EA9E12 = {
 			isa = PBXGroup;
 			children = (
@@ -71,7 +64,6 @@
 		3DB3CCAA1ECE365A00EA9E12 /* Burp */ = {
 			isa = PBXGroup;
 			children = (
-				3D680BA51EDE4B930003C874 /* Images */,
 				3DB3CCAB1ECE365A00EA9E12 /* AppDelegate.swift */,
 				3DB3CCAD1ECE365A00EA9E12 /* ViewController.swift */,
 				3DB3CCAF1ECE365A00EA9E12 /* Main.storyboard */,

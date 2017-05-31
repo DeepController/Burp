@@ -20,6 +20,12 @@ class ViewController: UIViewController {
 		// Dispose of any resources that can be recreated.
 	}
 
-
+	func popAlert(content : String) {
+		let alert = UIAlertController.init(title: "Error!", message: content, preferredStyle: .alert)
+		let action = UIAlertAction.init(title: "OK", style: .default, handler: nil)
+		alert.addAction(action)
+		self.present(alert, animated: true, completion: nil)
+	}
+	
 }
 
