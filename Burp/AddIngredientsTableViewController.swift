@@ -12,13 +12,12 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 
 	// MARK: - UIElements
 	@IBOutlet var tableView: UITableView!
-	@IBOutlet weak var search: UISearchBar!
 	
 	// MARK: - Fields
 	let cellReuseIdentifier = "IngredientCell"
 	var ingDataCollection = [ingData]()
 	var cacheImageURL : URL? = nil
-	var resultSearchController = UISearchController()
+	var searchController = UISearchController()
 	
 	//
 	// MARK: - View Control
@@ -34,7 +33,8 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 		tableView.delegate = self
 		tableView.dataSource = self
-		search.delegate = self
+		configureSearchController()
+		searchController.isActive = true
 		cacheImageURL = try! FileManager().url(for: .cachesDirectory,
 		                                  in: .userDomainMask,
 		                                  appropriateFor: nil,
@@ -127,8 +127,16 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 	// MARK: - Search Bar Configuration
 	//
 	
-	override func touchesBegan(_ touches:Set<UITouch>, with event:UIEvent?) {
-//		search.resignFirstResponder()
+	func configureSearchController() {
+		// 初始化搜索控制器，并且进行最小化的配置
+		searchController = UISearchController(searchResultsController: nil)
+		searchController.dimsBackgroundDuringPresentation = true
+		searchController.searchBar.placeholder = "Search"
+		searchController.searchBar.delegate = self
+		searchController.searchBar.sizeToFit()
+		
+		// 放置 搜索条在 tableView的头部视图中
+		tableView.tableHeaderView = searchController.searchBar
 	}
 	
 	func searchBarSearchButtonClicked(_ searchBar : UISearchBar) {
@@ -137,7 +145,7 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 		if !isEmpty {
 //			print("searching")
 			searchIngredient(ofName: searchBar.text!)
-			search.resignFirstResponder()
+			searchController.isActive = false
 		} else {
 //			print("poping alert")
 			super.popAlert(content: "Please enter non-empty query!")
