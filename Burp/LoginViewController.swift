@@ -59,7 +59,7 @@ class LoginViewController: ViewController, UITextFieldDelegate {
 	// MARK: - Remote Validation
 
 	fileprivate func askServer(to action : String, account : String, password : String) {
-		var request = URLRequest(url: URL(string: "https://students.washington.edu/yangw97/validate.php")!)
+		var request = URLRequest(url: URL(string: "https://students.washington.edu/yangw97/Burp/validate.php")!)
 		request.httpMethod = "POST"
 		let postString = "action=\(action)&account=\(account)&password=\(password)"
 		request.httpBody = postString.data(using: .utf8)
