@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -284,7 +284,13 @@
                             <outlet property="delegate" destination="A26-60-MNn" id="PuD-DU-lVZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Recipes" id="aeq-Ba-cWG"/>
+                    <navigationItem key="navigationItem" title="Recipes" id="aeq-Ba-cWG">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="OgU-c4-NXV">
+                            <connections>
+                                <segue destination="zF4-1s-qQi" kind="show" id="lQG-vS-Zyk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZV-8B-c4a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -328,11 +334,11 @@
                                 <state key="normal" title="&lt; Back"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z5P-gL-xKi">
-                                <rect key="frame" x="141" y="629" width="93" height="30"/>
+                                <rect key="frame" x="132" y="629" width="112" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add a Review"/>
+                                <state key="normal" title="View Comments"/>
                                 <connections>
-                                    <segue destination="ovf-fm-rjd" kind="show" id="SSZ-hk-BlX"/>
+                                    <segue destination="C1g-tJ-wss" kind="show" id="7cM-Jp-g09"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -343,10 +349,87 @@
             </objects>
             <point key="canvasLocation" x="4754" y="123"/>
         </scene>
-        <!--View Controller-->
+        <!--Comment-->
+        <scene sceneID="S0l-Xn-8D2">
+            <objects>
+                <tableViewController storyboardIdentifier="commentTableViewController" id="C1g-tJ-wss" customClass="commentTableViewController" customModule="Burp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="203" sectionHeaderHeight="28" sectionFooterHeight="28" id="i21-w0-Rcx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="203" id="rbs-iu-xYc" customClass="commentTableViewCell" customModule="Burp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="203"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rbs-iu-xYc" id="pec-hT-v6P">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="202.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYH-Rs-VaT">
+                                            <rect key="frame" x="28" y="18" width="319" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YQl-6R-TNH">
+                                            <rect key="frame" x="28" y="49" width="319" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="213412342134123412341234213412341234123412341243421341234123412341341341234" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="18" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5a-Hz-pFe">
+                                            <rect key="frame" x="30" y="80" width="315" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="HYH-Rs-VaT" firstAttribute="top" secondItem="pec-hT-v6P" secondAttribute="topMargin" constant="10" id="1xc-3W-Uc4"/>
+                                        <constraint firstItem="k5a-Hz-pFe" firstAttribute="leading" secondItem="pec-hT-v6P" secondAttribute="leading" constant="30" id="4U5-xs-7MJ"/>
+                                        <constraint firstItem="YQl-6R-TNH" firstAttribute="top" secondItem="HYH-Rs-VaT" secondAttribute="bottom" constant="10" id="ANs-1v-X4T"/>
+                                        <constraint firstItem="YQl-6R-TNH" firstAttribute="leading" secondItem="pec-hT-v6P" secondAttribute="leadingMargin" constant="20" id="BuG-NG-Lgf"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="HYH-Rs-VaT" secondAttribute="trailing" constant="20" id="G0v-K8-ZcS"/>
+                                        <constraint firstAttribute="trailing" secondItem="k5a-Hz-pFe" secondAttribute="trailing" constant="30" id="nGl-oN-EKO"/>
+                                        <constraint firstItem="k5a-Hz-pFe" firstAttribute="top" secondItem="YQl-6R-TNH" secondAttribute="bottom" constant="10" id="oCR-dR-Sha"/>
+                                        <constraint firstItem="HYH-Rs-VaT" firstAttribute="leading" secondItem="pec-hT-v6P" secondAttribute="leadingMargin" constant="20" id="qYl-ce-p9K"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="YQl-6R-TNH" secondAttribute="trailing" constant="20" id="say-o4-G8H"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="rating" destination="YQl-6R-TNH" id="vjA-sv-BW7"/>
+                                    <outlet property="review" destination="k5a-Hz-pFe" id="YDv-AS-fJb"/>
+                                    <outlet property="title" destination="HYH-Rs-VaT" id="wbv-K1-AHJ"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="C1g-tJ-wss" id="Tyr-Iu-7Bk"/>
+                            <outlet property="delegate" destination="C1g-tJ-wss" id="H6R-qq-ILw"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Comment" id="l03-12-I4P">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="mVT-sD-1r0">
+                            <connections>
+                                <segue destination="zF4-1s-qQi" kind="show" id="Pxj-g2-PJ9"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="W6v-Qk-4YK">
+                            <connections>
+                                <segue destination="ovf-fm-rjd" kind="show" id="xjI-uU-0bm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d68-sN-baU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5783.1999999999998" y="517.6911544227886"/>
+        </scene>
+        <!--Add Comment-->
         <scene sceneID="9Jr-nF-V2K">
             <objects>
-                <viewController id="ovf-fm-rjd" sceneMemberID="viewController">
+                <viewController title="Add Comment" id="ovf-fm-rjd" customClass="addCommentViewController" customModule="Burp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DuB-Ky-NT9"/>
                         <viewControllerLayoutGuide type="bottom" id="RP0-wx-9Wt"/>
@@ -359,7 +442,6 @@
                                 <rect key="frame" x="52" y="198" width="271" height="242"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -371,7 +453,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xR-Rn-tfE">
-                                <rect key="frame" x="52" y="98" width="34" height="21"/>
+                                <rect key="frame" x="52" y="92" width="34" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <nil key="textColor"/>
@@ -384,8 +466,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRf-Fp-ART">
-                                <rect key="frame" x="52" y="466" width="35" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rating " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRf-Fp-ART">
+                                <rect key="frame" x="52" y="461" width="37" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <nil key="textColor"/>
@@ -406,21 +488,33 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o1j-kJ-weK">
-                                <rect key="frame" x="137" y="609" width="101" height="30"/>
+                                <rect key="frame" x="163" y="639" width="49" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Submit Review"/>
+                                <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="submitPressed:" destination="ovf-fm-rjd" eventType="touchUpInside" id="Aeg-dU-8CB"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="umn-nr-vz2">
                                 <rect key="frame" x="34" y="36" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="&lt;"/>
-                                <connections>
-                                    <segue destination="zF4-1s-qQi" kind="show" id="NbS-5G-4Hx"/>
-                                </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fSD-3Y-4Wi">
+                                <rect key="frame" x="95" y="461" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="ratingText" destination="fSD-3Y-4Wi" id="Tdu-mG-bRk"/>
+                        <outlet property="reviewText" destination="eQO-4t-t3u" id="gJ6-SY-rzg"/>
+                        <outlet property="titleText" destination="Gt5-T2-x7v" id="93c-I9-y5c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="31s-Xv-yRW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -475,6 +569,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Xld-od-zwK"/>
+        <segue reference="Pxj-g2-PJ9"/>
     </inferredMetricsTieBreakers>
 </document>

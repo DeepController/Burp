@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D32D9D51EDE8CF400432E63 /* commentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D32D9D41EDE8CF400432E63 /* commentTableViewController.swift */; };
+		1D90EEB31EDF9F8D00C2E158 /* addCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D90EEB21EDF9F8D00C2E158 /* addCommentViewController.swift */; };
+		1D90EEB71EDFA68500C2E158 /* commentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D90EEB61EDFA68500C2E158 /* commentTableViewCell.swift */; };
 		3D4CCA851ED51DE6002D54B0 /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CCA841ED51DE6002D54B0 /* RecipeDetailViewController.swift */; };
 		3DB3CCAC1ECE365A00EA9E12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3CCAB1ECE365A00EA9E12 /* AppDelegate.swift */; };
 		3DB3CCAE1ECE365A00EA9E12 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3CCAD1ECE365A00EA9E12 /* ViewController.swift */; };
@@ -17,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D32D9D41EDE8CF400432E63 /* commentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commentTableViewController.swift; sourceTree = "<group>"; };
+		1D90EEB21EDF9F8D00C2E158 /* addCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addCommentViewController.swift; sourceTree = "<group>"; };
+		1D90EEB61EDFA68500C2E158 /* commentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commentTableViewCell.swift; sourceTree = "<group>"; };
 		3D4CCA841ED51DE6002D54B0 /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
 		3DB3CCA81ECE365A00EA9E12 /* Burp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Burp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB3CCAB1ECE365A00EA9E12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,11 +67,14 @@
 				3DB3CCAB1ECE365A00EA9E12 /* AppDelegate.swift */,
 				3DB3CCAD1ECE365A00EA9E12 /* ViewController.swift */,
 				3DB3CCAF1ECE365A00EA9E12 /* Main.storyboard */,
+				1D32D9D41EDE8CF400432E63 /* commentTableViewController.swift */,
 				3DFECFC11ED6003400EA4BA3 /* LoginViewController.swift */,
 				3D4CCA841ED51DE6002D54B0 /* RecipeDetailViewController.swift */,
 				3DB3CCB21ECE365A00EA9E12 /* Assets.xcassets */,
 				3DB3CCB41ECE365A00EA9E12 /* LaunchScreen.storyboard */,
 				3DB3CCB71ECE365A00EA9E12 /* Info.plist */,
+				1D90EEB21EDF9F8D00C2E158 /* addCommentViewController.swift */,
+				1D90EEB61EDFA68500C2E158 /* commentTableViewCell.swift */,
 			);
 			path = Burp;
 			sourceTree = "<group>";
@@ -143,7 +152,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D90EEB31EDF9F8D00C2E158 /* addCommentViewController.swift in Sources */,
+				1D32D9D51EDE8CF400432E63 /* commentTableViewController.swift in Sources */,
 				3DFECFC21ED6003400EA4BA3 /* LoginViewController.swift in Sources */,
+				1D90EEB71EDFA68500C2E158 /* commentTableViewCell.swift in Sources */,
 				3DB3CCAE1ECE365A00EA9E12 /* ViewController.swift in Sources */,
 				3D4CCA851ED51DE6002D54B0 /* RecipeDetailViewController.swift in Sources */,
 				3DB3CCAC1ECE365A00EA9E12 /* AppDelegate.swift in Sources */,
