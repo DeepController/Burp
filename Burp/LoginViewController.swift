@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: ViewController, UITextFieldDelegate {
 
 	// MARK: - UIElements
 	@IBOutlet weak var AccountTextField: UITextField!
@@ -17,9 +17,7 @@ class LoginViewController: UIViewController {
 	// MARK: - PressButtonActions
 	
 	@IBAction func LoginPressed(_ sender: UIButton) {
-		if checkAccountPasswordLegality() {
-			askServer(to: "validate", account: AccountTextField.text!, password: PasswordTextField.text!)
-		}
+		askServer(to: "validate", account: AccountTextField.text!, password: PasswordTextField.text!)
 	}
 	
 	@IBAction func SignUpPressed(_ sender: UIButton) {
@@ -28,18 +26,27 @@ class LoginViewController: UIViewController {
 		}
 	}
 	
-	fileprivate func popAlert(content : String) {
-		let alert = UIAlertController.init(title: "Error!", message: content, preferredStyle: .alert)
-		let action = UIAlertAction.init(title: "OK", style: .default, handler: nil)
-		alert.addAction(action)
-		self.present(alert, animated: true, completion: nil)
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		if textField === AccountTextField {
+			PasswordTextField.becomeFirstResponder()
+		} else {
+			textField.resignFirstResponder()
+		}
+		return true
 	}
+	
+//	fileprivate func popAlert(content : String) {
+//		let alert = UIAlertController.init(title: "Error!", message: content, preferredStyle: .alert)
+//		let action = UIAlertAction.init(title: "OK", style: .default, handler: nil)
+//		alert.addAction(action)
+//		self.present(alert, animated: true, completion: nil)
+//	}
 	
 	fileprivate func checkAccountPasswordLegality() -> Bool {
 		let account = AccountTextField.text!
 		let password = PasswordTextField.text!
 		if !checkStringValidity(of: account) || !checkStringValidity(of: password) {
-			popAlert(content: "The account/password must contains more than 6 alphanumeric characters only.")
+			super.popAlert(content: "The account/password must contains more than 6 alphanumeric characters only.")
 			return false
 		}
 		return true
@@ -79,11 +86,11 @@ class LoginViewController: UIViewController {
 		switch content {
 		case _ where content.contains("existed"):
 			OperationQueue.main.addOperation{
-				self.popAlert(content: "The account is already exist. Please try another one.")
+				super.popAlert(content: "The account is already exist. Please try another one.")
 			}
 		case _ where content.contains("false"):
 			OperationQueue.main.addOperation{
-				self.popAlert(content: "Please check your account and password.")
+				super.popAlert(content: "Please check your account and password.")
 			}
 		default:
 			OperationQueue.main.addOperation{
@@ -96,7 +103,8 @@ class LoginViewController: UIViewController {
 	// MARK: - SceneControl
     override func viewDidLoad() {
         super.viewDidLoad()
-
+		AccountTextField.delegate = self
+		PasswordTextField.delegate = self
         // Do any additional setup after loading the view.
     }
 
