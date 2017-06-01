@@ -132,7 +132,7 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 		// initialize search bar
 		searchController = UISearchController(searchResultsController: nil)
 		searchController.dimsBackgroundDuringPresentation = true
-		searchController.searchBar.placeholder = "Search"
+		searchController.searchBar.placeholder = "Search For Ingredient You Have"
 		searchController.searchBar.delegate = self
 		searchController.searchBar.sizeToFit()
 		
