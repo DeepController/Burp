@@ -96,27 +96,17 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 			if let location = location, error == nil {
 				let locationPath = location.path
 				let cache = NSHomeDirectory() + "/Library/Caches/\(name)"
-				//				let cacheDirect = NSHomeDirectory() + "/Library/Caches"
-				//				var isDir : ObjCBool = true
 				let fileManager = FileManager.default
-				//				print("tmp file exist? \(fileManager.fileExists(atPath: locationPath))")
-				//				print("cache directory exist? \(fileManager.fileExists(atPath: cacheDirect, isDirectory: &isDir))")
-				//				print("cache file exist? \(fileManager.fileExists(atPath: cache))")
+				
 				do {
 					try fileManager.moveItem(atPath: locationPath, toPath: cache)
 				} catch CocoaError.fileWriteFileExists {
-					//					if (FileManager.default.fileExists(atPath: cache)) {
-					//						try! fileManager.removeItem(atPath: cache)
-					//						try! fileManager.moveItem(atPath: locationPath, toPath: cache)
-					//					}
 				} catch let error as NSError {
 					print("Error: \(error.domain)")
 				}
 				DispatchQueue.main.async {
 					cell.pic.image = UIImage(contentsOfFile: cache)
-					//					cell.imageView?.image = UIImage(contentsOfFile: cache)
-					//					cell.setNeedsLayout() //invalidate current layout
-					//					cell.layoutIfNeeded() //update immediately
+
 				}
 			} else {
 				print("Fail to download cache image")
@@ -152,6 +142,7 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 			}
 			OperationQueue.main.addOperation {
 				self.tableView.reloadData()
+				self.searching.removeFromSuperview()
 			}
 		}
 		task.resume()
@@ -177,11 +168,10 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 		let isEmpty = searchBar.text?.range(of: "^[ /s]*$", options: .regularExpression, range: nil, locale: nil) != nil
 		
 		if !isEmpty {
-			//			print("searching")
 			searchIngredient(ofName: searchBar.text!)
 			searchController.isActive = false
+			self.view.addSubview(searching)
 		} else {
-			//			print("poping alert")
 			super.popAlert(content: "Please enter non-empty query!")
 		}
 	}
@@ -202,22 +192,12 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 		
 		// Configure the cell...
 		let currentIngredientData = ingDataCollection[indexPath.row]
-//		checkAddedIngredients(name: currentIngredientData.name) { (flag) in
-//			if flag {
-//				cell.addButton.setTitle("Remove", for: .normal)
-//				cell.addButton.setTitleColor(UIColor.red, for: .normal)
-//			} else {
-//				cell.addButton.setTitle("Add", for: .normal)
-//				cell.addButton.setTitleColor(UIColor(red: 0.0, green: 122/255, blue: 1.0, alpha: 1), for: .normal)
-//			}
-//		}
 		cell.name.text = currentIngredientData.name
 		cell.username = username
 		cell.picname = currentIngredientData.picName
 		// Deal with image, if image cached, no download
 		let imagePath = NSHomeDirectory() + "/Library/Caches/\(currentIngredientData.picName)"
 		if FileManager.default.fileExists(atPath: imagePath) {
-			//			cell.imageView?.image = UIImage(contentsOfFile: imagePath)
 			cell.pic.image = UIImage(contentsOfFile: imagePath)
 		} else {
 			cell.pic.image = nil
@@ -230,9 +210,6 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 			cell.addButton.setTitle("Add", for: .normal)
 			cell.addButton.setTitleColor(UIColor(red: 0.0, green: 122/255, blue: 1.0, alpha: 1), for: .normal)
 		}
-		
-		//		let fileURL = cacheImageURL.appendingPathComponent(currentIngredientData.picName)
-		//		cell.imageView?.image = UIImage(data: try! Data(contentsOf: fileURL))
 		
 		return cell
 	}
