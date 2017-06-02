@@ -9,7 +9,7 @@
 import UIKit
 
 class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
-	
+
 	// MARK: - UIElements
 	@IBOutlet var tableView: UITableView!
 	
@@ -29,6 +29,11 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 		tableView.delegate = self
 		tableView.dataSource = self
 		configureSearchController()

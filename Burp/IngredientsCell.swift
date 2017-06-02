@@ -73,5 +73,4 @@ class IngredientsCell: UITableViewCell {
 		}
 		task.resume()
 	}
-
 }
