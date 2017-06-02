@@ -11,11 +11,13 @@ import Foundation
 struct ingData {
 	var name : String
 	var picName : String
+	var added : Bool
 }
 
 extension ingData {
 	init?(json: [String : Any]) {
 		self.name = json["name"] as! String
 		self.picName = json["image"] as! String
+		self.added = false
 	}
 }

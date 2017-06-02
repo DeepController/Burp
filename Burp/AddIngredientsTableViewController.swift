@@ -9,7 +9,7 @@
 import UIKit
 
 class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
-
+	
 	// MARK: - UIElements
 	@IBOutlet var tableView: UITableView!
 	
@@ -18,34 +18,31 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 	var ingDataCollection = [ingData]()
 	var cacheImageURL : URL? = nil
 	var searchController = UISearchController()
+	var username : String = ""
+	let searching = ProgressHUD(text: "Searching")
+	
 	
 	//
 	// MARK: - View Control
 	//
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 		tableView.delegate = self
 		tableView.dataSource = self
 		configureSearchController()
 		searchController.isActive = true
 		searchController.searchBar.becomeFirstResponder()
 		cacheImageURL = try! FileManager().url(for: .cachesDirectory,
-		                                  in: .userDomainMask,
-		                                  appropriateFor: nil,
-		                                  create: true)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+		                                       in: .userDomainMask,
+		                                       appropriateFor: nil,
+		                                       create: true)
+	}
+	
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+	}
 	
 	//
 	// MARK: - Retrieve Data
@@ -75,12 +72,10 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 			self.ingDataCollection.removeAll(keepingCapacity: false)
 			for ing in ingList! {
 				let ingObject = ingData(json: ing as! [String:Any])!
-//				self.downloadIngredientImage(ofName: ingObject.picName)
+				//self.downloadIngredientImage(ofName: ingObject.picName)
 				self.ingDataCollection.append(ingObject)
 			}
-			OperationQueue.main.addOperation {
-				self.tableView.reloadData()
-			}
+			self.checkAddedIngredients(json: String(data: data, encoding: .utf8)!)
 		}
 		task.resume()
 	}
@@ -96,29 +91,62 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 			if let location = location, error == nil {
 				let locationPath = location.path
 				let cache = NSHomeDirectory() + "/Library/Caches/\(name)"
-//				let cacheDirect = NSHomeDirectory() + "/Library/Caches"
-//				var isDir : ObjCBool = true
+				//				let cacheDirect = NSHomeDirectory() + "/Library/Caches"
+				//				var isDir : ObjCBool = true
 				let fileManager = FileManager.default
-//				print("tmp file exist? \(fileManager.fileExists(atPath: locationPath))")
-//				print("cache directory exist? \(fileManager.fileExists(atPath: cacheDirect, isDirectory: &isDir))")
-//				print("cache file exist? \(fileManager.fileExists(atPath: cache))")
+				//				print("tmp file exist? \(fileManager.fileExists(atPath: locationPath))")
+				//				print("cache directory exist? \(fileManager.fileExists(atPath: cacheDirect, isDirectory: &isDir))")
+				//				print("cache file exist? \(fileManager.fileExists(atPath: cache))")
 				do {
 					try fileManager.moveItem(atPath: locationPath, toPath: cache)
 				} catch CocoaError.fileWriteFileExists {
-//					if (FileManager.default.fileExists(atPath: cache)) {
-//						try! fileManager.removeItem(atPath: cache)
-//						try! fileManager.moveItem(atPath: locationPath, toPath: cache)
-//					}
+					//					if (FileManager.default.fileExists(atPath: cache)) {
+					//						try! fileManager.removeItem(atPath: cache)
+					//						try! fileManager.moveItem(atPath: locationPath, toPath: cache)
+					//					}
 				} catch let error as NSError {
 					print("Error: \(error.domain)")
 				}
 				DispatchQueue.main.async {
-					cell.imageView?.image = UIImage(contentsOfFile: cache)
-					cell.setNeedsLayout() //invalidate current layout
-					cell.layoutIfNeeded() //update immediately
+					cell.pic.image = UIImage(contentsOfFile: cache)
+					//					cell.imageView?.image = UIImage(contentsOfFile: cache)
+					//					cell.setNeedsLayout() //invalidate current layout
+					//					cell.layoutIfNeeded() //update immediately
 				}
 			} else {
 				print("Fail to download cache image")
+			}
+		}
+		task.resume()
+	}
+	
+	fileprivate func checkAddedIngredients(json : String) {
+		var request = URLRequest(url: URL(string: "https://students.washington.edu/yangw97/Burp/ingredient.php")!)
+		request.httpMethod = "POST"
+		let postString = "action=check&account=\(username)&json=\(json)"
+		request.httpBody = postString.data(using: .utf8)
+		let task = URLSession.shared.dataTask(with: request) { data, response, error in
+			guard let data = data, error == nil else {
+				// check for fundamental networking error
+				print("error=\(String(describing: error))")
+				return
+			}
+			
+			if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+				// check for http errors
+				print("statusCode should be 200, but is \(httpStatus.statusCode)")
+				print("response = \(String(describing: response))")
+			}
+			let result = String(data: data, encoding: .utf8)!
+			let arr = result.components(separatedBy: ":")
+			for num in arr {
+				if num != "" {
+					let n : Int = Int(num)!
+					self.ingDataCollection[n].added = true
+				}
+			}
+			OperationQueue.main.addOperation {
+				self.tableView.reloadData()
 			}
 		}
 		task.resume()
@@ -142,13 +170,13 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 	
 	func searchBarSearchButtonClicked(_ searchBar : UISearchBar) {
 		let isEmpty = searchBar.text?.range(of: "^[ /s]*$", options: .regularExpression, range: nil, locale: nil) != nil
-
+		
 		if !isEmpty {
-//			print("searching")
+			//			print("searching")
 			searchIngredient(ofName: searchBar.text!)
 			searchController.isActive = false
 		} else {
-//			print("poping alert")
+			//			print("poping alert")
 			super.popAlert(content: "Please enter non-empty query!")
 		}
 	}
@@ -169,66 +197,92 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 		
 		// Configure the cell...
 		let currentIngredientData = ingDataCollection[indexPath.row]
+//		checkAddedIngredients(name: currentIngredientData.name) { (flag) in
+//			if flag {
+//				cell.addButton.setTitle("Remove", for: .normal)
+//				cell.addButton.setTitleColor(UIColor.red, for: .normal)
+//			} else {
+//				cell.addButton.setTitle("Add", for: .normal)
+//				cell.addButton.setTitleColor(UIColor(red: 0.0, green: 122/255, blue: 1.0, alpha: 1), for: .normal)
+//			}
+//		}
 		cell.name.text = currentIngredientData.name
-		cell.imageView?.image = nil
-		downloadIngredientImage(ofName: currentIngredientData.picName, cell: cell)
-//		let fileURL = cacheImageURL.appendingPathComponent(currentIngredientData.picName)
-//		cell.imageView?.image = UIImage(data: try! Data(contentsOf: fileURL))
+		cell.username = username
+		cell.picname = currentIngredientData.picName
+		// Deal with image, if image cached, no download
+		let imagePath = NSHomeDirectory() + "/Library/Caches/\(currentIngredientData.picName)"
+		if FileManager.default.fileExists(atPath: imagePath) {
+			//			cell.imageView?.image = UIImage(contentsOfFile: imagePath)
+			cell.pic.image = UIImage(contentsOfFile: imagePath)
+		} else {
+			cell.pic.image = nil
+			downloadIngredientImage(ofName: currentIngredientData.picName, cell: cell)
+		}
+		if currentIngredientData.added {
+			cell.addButton.setTitle("Remove", for: .normal)
+			cell.addButton.setTitleColor(UIColor.red, for: .normal)
+		} else {
+			cell.addButton.setTitle("Add", for: .normal)
+			cell.addButton.setTitleColor(UIColor(red: 0.0, green: 122/255, blue: 1.0, alpha: 1), for: .normal)
+		}
+		
+		//		let fileURL = cacheImageURL.appendingPathComponent(currentIngredientData.picName)
+		//		cell.imageView?.image = UIImage(data: try! Data(contentsOf: fileURL))
 		
 		return cell
 	}
 	
 	/*
 	func numberOfSections(in tableView: UITableView) -> Int {
-		// #warning Incomplete implementation, return the number of sections
-		return 0
+	// #warning Incomplete implementation, return the number of sections
+	return 0
 	}
 	*/
-
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+	
+	
+	/*
+	// Override to support conditional editing of the table view.
+	override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+	// Return false if you do not want the specified item to be editable.
+	return true
+	}
+	*/
+	
+	/*
+	// Override to support editing the table view.
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+	if editingStyle == .delete {
+	// Delete the row from the data source
+	tableView.deleteRows(at: [indexPath], with: .fade)
+	} else if editingStyle == .insert {
+	// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+	}
+	}
+	*/
+	
+	/*
+	// Override to support rearranging the table view.
+	override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+	
+	}
+	*/
+	
+	/*
+	// Override to support conditional rearranging of the table view.
+	override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+	// Return false if you do not want the item to be re-orderable.
+	return true
+	}
+	*/
+	
+	/*
+	// MARK: - Navigation
+	
+	// In a storyboard-based application, you will often want to do a little preparation before navigation
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+	// Get the new view controller using segue.destinationViewController.
+	// Pass the selected object to the new view controller.
+	}
+	*/
+	
 }

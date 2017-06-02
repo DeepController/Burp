@@ -14,13 +14,17 @@ class LoginViewController: ViewController, UITextFieldDelegate {
 	@IBOutlet weak var AccountTextField: UITextField!
 	@IBOutlet weak var PasswordTextField: UITextField!
 	
+	let loading = ProgressHUD(text: "Logging in")
+	
 	// MARK: - PressButtonActions
 	
 	@IBAction func LoginPressed(_ sender: UIButton) {
+		self.view.addSubview(loading)
 		askServer(to: "validate", account: AccountTextField.text!, password: PasswordTextField.text!)
 	}
 	
 	@IBAction func SignUpPressed(_ sender: UIButton) {
+		self.view.addSubview(loading)
 		if checkAccountPasswordLegality() {
 			askServer(to: "create", account: AccountTextField.text!, password: PasswordTextField.text!)
 		}
@@ -46,6 +50,7 @@ class LoginViewController: ViewController, UITextFieldDelegate {
 		let account = AccountTextField.text!
 		let password = PasswordTextField.text!
 		if !checkStringValidity(of: account) || !checkStringValidity(of: password) {
+			loading.removeFromSuperview()
 			super.popAlert(content: "The account/password must contains more than 6 alphanumeric characters only.")
 			return false
 		}
@@ -83,6 +88,9 @@ class LoginViewController: ViewController, UITextFieldDelegate {
 	}
 	
 	fileprivate func handleResponse(content : String) {
+		OperationQueue.main.addOperation{
+			self.loading.removeFromSuperview()
+		}
 		switch content {
 		case _ where content.contains("existed"):
 			OperationQueue.main.addOperation{
@@ -101,6 +109,19 @@ class LoginViewController: ViewController, UITextFieldDelegate {
 
 	
 	// MARK: - SceneControl
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		
+		if segue.identifier == "LoginToAddSegue" {
+			let navController = segue.destination as! UINavigationController
+			let destinationController = navController.topViewController as! AddIngredientsTableViewController
+			destinationController.username = AccountTextField.text!
+			//			dest.quizIndex = self.tableView.indexPath(for: sender as! UITableViewCell)!.row
+			//			allQuestion.populate(id: self.tableView.indexPath(for: sender as! UITableViewCell)!.row)
+			//			dest.questionVault = allQuestion
+		}
+	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		AccountTextField.delegate = self

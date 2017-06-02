@@ -180,7 +180,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5ZK-CL-baw" userLabel="IngredientPic">
-                                            <rect key="frame" x="18" y="10.5" width="100" height="100"/>
+                                            <rect key="frame" x="18" y="11" width="100" height="100"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="100" id="Rbe-Hd-46G"/>
                                                 <constraint firstAttribute="height" constant="100" id="jM1-SO-Toi"/>
@@ -189,6 +189,9 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Avz-vP-6uU">
                                             <rect key="frame" x="326" y="46" width="30" height="30"/>
                                             <state key="normal" title="Add"/>
+                                            <connections>
+                                                <action selector="addPressed:" destination="POd-Rr-zmb" eventType="touchUpInside" id="Zh6-ZY-gNu"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -197,7 +200,7 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="Avz-vP-6uU" secondAttribute="trailing" constant="11" id="aoN-n8-chb"/>
                                         <constraint firstItem="Avz-vP-6uU" firstAttribute="centerY" secondItem="vSF-Zm-h7Q" secondAttribute="centerY" id="bXi-MY-aHh"/>
                                         <constraint firstItem="5ZK-CL-baw" firstAttribute="leading" secondItem="vSF-Zm-h7Q" secondAttribute="leading" constant="18" id="bt0-MB-fxZ"/>
-                                        <constraint firstItem="5ZK-CL-baw" firstAttribute="centerY" secondItem="vSF-Zm-h7Q" secondAttribute="centerY" id="pkJ-iq-oU9"/>
+                                        <constraint firstItem="5ZK-CL-baw" firstAttribute="centerY" secondItem="vSF-Zm-h7Q" secondAttribute="centerY" constant="-0.25" id="pkJ-iq-oU9"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
