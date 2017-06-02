@@ -448,7 +448,7 @@
         <!--Manage-->
         <scene sceneID="5MQ-es-b5b">
             <objects>
-                <viewController id="GDU-dm-TPo" sceneMemberID="viewController">
+                <viewController id="GDU-dm-TPo" customClass="ManageIngredientViewController" customModule="Burp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nwD-yZ-yfk"/>
                         <viewControllerLayoutGuide type="bottom" id="agN-Uf-XXS"/>
