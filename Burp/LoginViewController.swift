@@ -102,24 +102,28 @@ class LoginViewController: ViewController, UITextFieldDelegate {
 			}
 		default:
 			OperationQueue.main.addOperation{
+				let defaults = UserDefaults.standard
+				defaults.set(self.AccountTextField.text!, forKey: defaultsKeys.username)
+				print(defaults.string(forKey: defaultsKeys.username)!)
 				self.performSegue(withIdentifier: "LoginToAddSegue", sender: nil)
 			}
 		}
 	}
 
 	
-	// MARK: - SceneControl
+	// MARK: - View Control
 	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		
-		if segue.identifier == "LoginToAddSegue" {
-			let navController = segue.destination as! UINavigationController
-			let destinationController = navController.topViewController as! AddIngredientsTableViewController
-			destinationController.username = AccountTextField.text!
-			//			dest.quizIndex = self.tableView.indexPath(for: sender as! UITableViewCell)!.row
-			//			allQuestion.populate(id: self.tableView.indexPath(for: sender as! UITableViewCell)!.row)
-			//			dest.questionVault = allQuestion
-		}
+//	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//		
+//		if segue.identifier == "LoginToAddSegue" {
+//			
+//		}
+//	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		AccountTextField.text = ""
+		PasswordTextField.text = ""
 	}
 	
     override func viewDidLoad() {

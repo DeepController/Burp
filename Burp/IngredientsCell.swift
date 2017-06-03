@@ -42,7 +42,7 @@ class IngredientsCell: UITableViewCell {
 		}
 	}
 
-	fileprivate func modifyIngredientOnServer(action : String) {
+	func modifyIngredientOnServer(action : String) {
 		var request = URLRequest(url: URL(string: "https://students.washington.edu/yangw97/Burp/ingredient.php")!)
 		request.httpMethod = "POST"
 		let postString = "action=\(action)&account=\(username)&ingredient_name=\(name.text!)&ingredient_image=\(picname)"

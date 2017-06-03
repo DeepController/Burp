@@ -18,7 +18,7 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 	var ingDataCollection = [ingData]()
 	var cacheImageURL : URL? = nil
 	var searchController = UISearchController()
-	var username : String = ""
+	var username : String = UserDefaults.standard.string(forKey: defaultsKeys.username)!
 	let searching = ProgressHUD(text: "Searching")
 	
 	
@@ -28,12 +28,6 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 		tableView.delegate = self
 		tableView.dataSource = self
 		configureSearchController()
@@ -48,6 +42,11 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 	}
+	
+	@IBAction func donePressed(_ sender: UIBarButtonItem) {
+		self.navigationController?.dismiss(animated: true, completion: nil)
+	}
+	
 	
 	//
 	// MARK: - Retrieve Data
@@ -106,7 +105,6 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 				}
 				DispatchQueue.main.async {
 					cell.pic.image = UIImage(contentsOfFile: cache)
-
 				}
 			} else {
 				print("Fail to download cache image")
@@ -213,58 +211,4 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 		
 		return cell
 	}
-	
-	/*
-	func numberOfSections(in tableView: UITableView) -> Int {
-	// #warning Incomplete implementation, return the number of sections
-	return 0
-	}
-	*/
-	
-	
-	/*
-	// Override to support conditional editing of the table view.
-	override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-	// Return false if you do not want the specified item to be editable.
-	return true
-	}
-	*/
-	
-	/*
-	// Override to support editing the table view.
-	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-	if editingStyle == .delete {
-	// Delete the row from the data source
-	tableView.deleteRows(at: [indexPath], with: .fade)
-	} else if editingStyle == .insert {
-	// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-	}
-	}
-	*/
-	
-	/*
-	// Override to support rearranging the table view.
-	override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-	
-	}
-	*/
-	
-	/*
-	// Override to support conditional rearranging of the table view.
-	override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-	// Return false if you do not want the item to be re-orderable.
-	return true
-	}
-	*/
-	
-	/*
-	// MARK: - Navigation
-	
-	// In a storyboard-based application, you will often want to do a little preparation before navigation
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-	// Get the new view controller using segue.destinationViewController.
-	// Pass the selected object to the new view controller.
-	}
-	*/
-	
 }
