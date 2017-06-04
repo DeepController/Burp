@@ -33,80 +33,98 @@ class commentTableViewController: UITableViewController {
         var photo : String
     }
     
-    func imgUpload() {
-    
-     /*   let request = NSMutableURLRequest(url: NSURL(string: "http://students.washington.edu/wangyic/burp/uploadImg.php")! as URL)
+    /*
+    func imgUpload()
+    {
+        let url = URL(string: "http://students.washington.edu/wangyic/burp/uploadImg.php")
+        
+        let request = NSMutableURLRequest(url: url!)
         request.httpMethod = "POST"
-        let boundary = "Boundary-\(UUID().uuidString)"
+        
+        let boundary = generateBoundaryString()
+        
+  
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        if (imageView == nil) {return}
-        request.httpBody = createBody(parameters: [:],
-                        boundary: boundary,
-                        data: UIImageJPEGRepresentation(imageView, 1)!,
-                        mimeType: "image/jpg",
-                        filename: "hello.jpg")
-
-        let task = URLSession.shared.dataTask(with: request as URLRequest) {
-            data, response, error in
-            print(1234)
-            if error != nil {
-                print("error=\(error)")
-                return
-            }
-            //print("responseString = \(responseString)")
+        
+        let image_data = UIImagePNGRepresentation(imageView)
+        
+        
+        if(image_data == nil)
+        {
+            return
         }
-        task.resume()*/
-/*        let task = URLSession.shared.dataTask(with: request as URLRequest) {
-            data, response, error in
-            print(1234)
-            guard let _:Data = data, let _:URLResponse = response  , error == nil else {
+        
+
+        let body = NSMutableData()
+        
+        let fname = "test.png"
+        let mimetype = "image/png"
+        
+
+        body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+        body.append("Content-Disposition:form-data; name=\"test\"\r\n\r\n".data(using: String.Encoding.utf8)!)
+        body.append("hi\r\n".data(using: String.Encoding.utf8)!)
+
+        
+        
+        body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+        body.append("Content-Disposition:form-data; name=\"file\"; filename=\"\(fname)\"\r\n".data(using: String.Encoding.utf8)!)
+        body.append("Content-Type: \(mimetype)\r\n\r\n".data(using: String.Encoding.utf8)!)
+        body.append(image_data!)
+        body.append("\r\n".data(using: String.Encoding.utf8)!)
+        
+        
+        body.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
+
+    
+        request.httpBody = body as Data
+        
+        
+        
+        let session = URLSession.shared
+
+        
+        let task = session.dataTask(with: request as URLRequest, completionHandler: {
+            (
+            data, response, error) in
+            
+            guard ((data) != nil), let _:URLResponse = response, error == nil else {
                 print("error")
                 return
             }
-
-            let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-
-            print(dataString)            
-        }
-        task.resume()*/
-    }
-    func createBody(parameters: [String: String],
-                boundary: String,
-                data: Data,
-                mimeType: String,
-                filename: String) -> Data {
-        let body = NSMutableData()
-
-        let boundaryPrefix = "--\(boundary)\r\n"
-
-        for (key, value) in parameters {
-            body.appendString(boundaryPrefix)
-            body.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
-            body.appendString("\(value)\r\n")
-        }
-
-        body.appendString(boundaryPrefix)
-        body.appendString("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n")
-        body.appendString("Content-Type: \(mimeType)\r\n\r\n")
-        body.append(data)
-        body.appendString("\r\n")
-        body.appendString("--".appending(boundary.appending("--")))
-
-        return body as Data
+            
+            if let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            {
+                print(dataString)
+            }
+            
+        }) 
+        
+        task.resume()
+        
+        
     }
     
-
-
-    func generateBoundaryString() -> String {
+    func generateBoundaryString() -> String
+    {
         return "Boundary-\(UUID().uuidString)"
-    }
-
+    }*/
+    
     func phpRequest() {
         let request = NSMutableURLRequest(url: NSURL(string: "http://students.washington.edu/wangyic/burp/addComment.php")! as URL)
         request.httpMethod = "POST"
+        
+ 
+        var imgQuery = ""
+        
+        if UIImageJPEGRepresentation(imageView, 1) != nil {
+            var imageData = UIImageJPEGRepresentation(imageView, 0.5)
+            var b64 = imageData?.base64EncodedString()
+            //b64?.replacingOccurrences(of: "+", with: "%2B")
+            imgQuery = "JPEG" + "," + b64!
+        }
 
-
-        let postString = "recipeId=\(recipeId)&name=\(name)&rating=\(rating)&content=\(review)"
+        let postString = "recipeId=\(recipeId)&name=\(name)&rating=\(rating)&content=\(review)&image=\(imgQuery)"
         request.httpBody = postString.data(using: String.Encoding.utf8)
 
         let task = URLSession.shared.dataTask(with: request as URLRequest) {
@@ -116,7 +134,7 @@ class commentTableViewController: UITableViewController {
                 return
             }
             
-           // let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            //let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             let json = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [Dictionary<String, AnyObject>]
             for item in json! {
                 self.commentSet.append(comment(title: item["name"] as! String, review: item["content"] as! String, rating: item["rating"] as! String, photo: item["image"] as! String))
@@ -130,12 +148,13 @@ class commentTableViewController: UITableViewController {
         task.resume()
     
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView()
-                if (imageView != nil) {
+       /* if (imageView != nil) {
             imgUpload();
-        }
+        }*/
         phpRequest();
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -182,8 +201,15 @@ class commentTableViewController: UITableViewController {
         cell.review.lineBreakMode = .byWordWrapping
         cell.review.numberOfLines = 0
         cell.review.text = commentSet[indexPath.row].review
-      //  cell.commentImage.image = imageView
-        
+        let url = URL(string: "http://students.washington.edu/wangyic/burp/img/\(commentSet[indexPath.row].photo)")
+        //let data = try? Data(contentsOf: url!)
+        //cell.commentImage.image = UIImage(data: data!)
+        DispatchQueue.global().async {
+            let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+            DispatchQueue.main.async {
+                cell.commentImage.image = UIImage(data: data!)
+            }
+        }
         //let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         //cell.textLabel!.text = commentSet[indexPath.row].title
         //cell.detailTextLabel!.text = commentSet[indexPath.row].review
