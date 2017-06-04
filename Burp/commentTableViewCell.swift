@@ -10,6 +10,7 @@ import UIKit
 
 class commentTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var commentImage: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var rating: UILabel!    
     @IBOutlet weak var review: UILabel!
