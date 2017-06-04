@@ -104,7 +104,6 @@ class LoginViewController: ViewController, UITextFieldDelegate {
 			OperationQueue.main.addOperation{
 				let defaults = UserDefaults.standard
 				defaults.set(self.AccountTextField.text!, forKey: defaultsKeys.username)
-				print(defaults.string(forKey: defaultsKeys.username)!)
 				self.performSegue(withIdentifier: "LoginToAddSegue", sender: nil)
 			}
 		}

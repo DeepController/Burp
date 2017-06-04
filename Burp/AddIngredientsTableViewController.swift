@@ -20,6 +20,7 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 	var searchController = UISearchController()
 	var username : String = UserDefaults.standard.string(forKey: defaultsKeys.username)!
 	let searching = ProgressHUD(text: "Searching")
+//	var uploaded = false
 	
 	
 	//
@@ -113,6 +114,34 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 		task.resume()
 	}
 	
+//	func uploadImage(ImageData : Data, format : String) {
+//		var b64 = ImageData.base64EncodedString()
+//		b64 = b64.replacingOccurrences(of: "+", with: "%2B")
+//		let query = format+","+b64
+//		var request = URLRequest(url: URL(string: "https://students.washington.edu/yangw97/Burp/uploadImg.php")!)
+//		request.httpMethod = "POST"
+//		let postString = "id=1234&account=\(username)&data=\(query)"
+//		print("The poststring : \(postString)")
+//		request.httpBody = postString.data(using: .utf8)
+//		let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//			guard let data = data, error == nil else {
+//				// check for fundamental networking error
+//				print("error=\(String(describing: error))")
+//				return
+//			}
+//			
+//			if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+//				// check for http errors
+//				print("statusCode should be 200, but is \(httpStatus.statusCode)")
+//				print("response = \(String(describing: response))")
+//			}
+//			let responseString = String(data: data, encoding: .utf8)!
+//			print("Feedback: " + responseString)
+//			print("Upload Complete")
+//		}
+//		task.resume()
+//	}
+	
 	fileprivate func checkAddedIngredients(json : String) {
 		var request = URLRequest(url: URL(string: "https://students.washington.edu/yangw97/Burp/ingredient.php")!)
 		request.httpMethod = "POST"
@@ -195,6 +224,12 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 		cell.picname = currentIngredientData.picName
 		// Deal with image, if image cached, no download
 		let imagePath = NSHomeDirectory() + "/Library/Caches/\(currentIngredientData.picName)"
+//		if !uploaded {
+//			uploaded = true
+//			let format = currentIngredientData.picName.components(separatedBy: ".")[1]
+//			let imageData = try! Data(contentsOf: URL(fileURLWithPath: imagePath))
+//			self.uploadImage(ImageData: imageData, format: format)
+//		}
 		if FileManager.default.fileExists(atPath: imagePath) {
 			cell.pic.image = UIImage(contentsOfFile: imagePath)
 		} else {

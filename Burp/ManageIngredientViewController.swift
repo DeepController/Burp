@@ -13,6 +13,7 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 	// MARK: - UIElement
 	
 	@IBOutlet weak var tableView: UITableView!
+	@IBOutlet weak var find: UIButton!
 	
 	// MARK: - Fields
 	
@@ -28,6 +29,10 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 		if let cell = sender.superview?.superview as? ManageTableCell {
 			let indexPath = tableView.indexPath(for: cell)!
 			ingDataCollection.remove(at: indexPath.row)
+			if ingDataCollection.count == 0 {
+				find.isEnabled = false
+				find.setTitle("Please add Ingredients", for: .normal)
+			}
 			deleteIngredientOnServer(cell: cell, index: indexPath)
 		}
 	}
@@ -64,6 +69,10 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 				self.ingDataCollection.append(ingObject)
 			}
 			OperationQueue.main.addOperation {
+				if self.ingDataCollection.count > 0 {
+					self.find.isEnabled = true
+					self.find.setTitle("Find Recipe", for: .normal)
+				}
 				self.tableView.reloadData()
 				self.loading.removeFromSuperview()
 			}
@@ -160,6 +169,8 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		self.viewDidLoad()
+		find.isEnabled = false
+		find.setTitle("Please add Ingredients", for: .normal)
 	}
 	
 	override func viewDidLoad() {
@@ -174,5 +185,16 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
+	}
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "manageToRecipe" {
+			var list : String = ingDataCollection[0].name
+			for i in 1..<ingDataCollection.count {
+				list.append("%2C\(ingDataCollection[i].name)")
+			}
+			let dest = segue.destination as! RecipeTableViewController
+			dest.ingList = list
+		}
 	}
 }
