@@ -73,12 +73,26 @@ class RecipeDetailViewController: UIViewController, UITableViewDelegate, UITable
 		let task = URLSession.shared.dataTask(with: request) { data, response, error in
 			guard let data = data, error == nil else {
 				// check for fundamental networking error
+				OperationQueue.main.addOperation {
+					let alert = UIAlertController.init(title: "Error!", message: "Network Error", preferredStyle: .alert)
+					let action = UIAlertAction.init(title: "Retry", style: .default, handler: {(alert: UIAlertAction!) in
+						self.viewDidLoad()})
+					alert.addAction(action)
+					self.present(alert, animated: true, completion: nil)
+				}
 				print("error=\(String(describing: error))")
 				return
 			}
 			
 			if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
 				// check for http errors
+				OperationQueue.main.addOperation {
+					let alert = UIAlertController.init(title: "Error!", message: "Network Error", preferredStyle: .alert)
+					let action = UIAlertAction.init(title: "Retry", style: .default, handler: {(alert: UIAlertAction!) in
+						self.viewDidLoad()})
+					alert.addAction(action)
+					self.present(alert, animated: true, completion: nil)
+				}
 				print("statusCode should be 200, but is \(httpStatus.statusCode)")
 				print("response = \(String(describing: response))")
 			}
@@ -127,6 +141,13 @@ class RecipeDetailViewController: UIViewController, UITableViewDelegate, UITable
 					self.titleImage.image = UIImage(contentsOfFile: cache)
 				}
 			} else {
+				OperationQueue.main.addOperation {
+					let alert = UIAlertController.init(title: "Error!", message: "Network Error", preferredStyle: .alert)
+					let action = UIAlertAction.init(title: "Retry", style: .default, handler: {(alert: UIAlertAction!) in
+						self.viewDidLoad()})
+					alert.addAction(action)
+					self.present(alert, animated: true, completion: nil)
+				}
 				print("Fail to download recipe image")
 			}
 		}

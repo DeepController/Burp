@@ -34,9 +34,11 @@ class IngredientsCell: UITableViewCell {
 	
 	@IBAction func addPressed(_ sender: UIButton) {
 		if self.addButton.titleLabel!.text! == "Add" {
+			self.addButton.isEnabled = false
 			self.addButton.setTitle("Adding", for: .normal)
 			modifyIngredientOnServer(action: "add")
 		} else {
+			self.addButton.isEnabled = false
 			self.addButton.setTitle("Removing", for: .normal)
 			modifyIngredientOnServer(action: "delete")
 		}
@@ -62,11 +64,13 @@ class IngredientsCell: UITableViewCell {
 			if action == "add" {
 				OperationQueue.main.addOperation {
 					self.addButton.setTitle("Remove", for: .normal)
+					self.addButton.isEnabled = true
 					self.addButton.setTitleColor(UIColor.red, for: .normal)
 				}
 			} else {
 				OperationQueue.main.addOperation {
 					self.addButton.setTitle("Add", for: .normal)
+					self.addButton.isEnabled = true
 					self.addButton.setTitleColor(UIColor(red: 0.0, green: 122/255, blue: 1.0, alpha: 1), for: .normal)
 				}
 			}
