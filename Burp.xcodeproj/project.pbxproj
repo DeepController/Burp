@@ -22,6 +22,8 @@
 		3DC7FCDA1EE3DE5C00B2BC2C /* RecipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7FCD91EE3DE5C00B2BC2C /* RecipeTableViewController.swift */; };
 		3DC7FCDC1EE3DFC400B2BC2C /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7FCDB1EE3DFC400B2BC2C /* RecipeCell.swift */; };
 		3DC7FCDE1EE3E01300B2BC2C /* RecipeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7FCDD1EE3E01300B2BC2C /* RecipeData.swift */; };
+		3DC7FCE01EE51A6E00B2BC2C /* stepData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7FCDF1EE51A6E00B2BC2C /* stepData.swift */; };
+		3DC7FCE21EE51C1700B2BC2C /* stepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7FCE11EE51C1700B2BC2C /* stepCell.swift */; };
 		3DE01B4D1EE13147007C60C6 /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE01B4C1EE13147007C60C6 /* ProgressHUD.swift */; };
 		3DFECFC21ED6003400EA4BA3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFECFC11ED6003400EA4BA3 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
@@ -44,6 +46,8 @@
 		3DC7FCD91EE3DE5C00B2BC2C /* RecipeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeTableViewController.swift; sourceTree = "<group>"; };
 		3DC7FCDB1EE3DFC400B2BC2C /* RecipeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		3DC7FCDD1EE3E01300B2BC2C /* RecipeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeData.swift; sourceTree = "<group>"; };
+		3DC7FCDF1EE51A6E00B2BC2C /* stepData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = stepData.swift; sourceTree = "<group>"; };
+		3DC7FCE11EE51C1700B2BC2C /* stepCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = stepCell.swift; sourceTree = "<group>"; };
 		3DE01B4C1EE13147007C60C6 /* ProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
 		3DFECFC11ED6003400EA4BA3 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,13 +90,15 @@
 				3DC7FCB51EE29FDA00B2BC2C /* ManageIngredientViewController.swift */,
 				3D46453A1EDCD92D00878363 /* AddIngredientsTableViewController.swift */,
 				3DC7FCD91EE3DE5C00B2BC2C /* RecipeTableViewController.swift */,
+				3D4CCA841ED51DE6002D54B0 /* RecipeDetailViewController.swift */,
 				3DE01B4C1EE13147007C60C6 /* ProgressHUD.swift */,
 				3DC7FCB31EE2247D00B2BC2C /* ManageTableCell.swift */,
 				3D680BA21EDE40820003C874 /* IngredientData.swift */,
 				3D46453C1EDCDD9400878363 /* IngredientsCell.swift */,
 				3DC7FCDD1EE3E01300B2BC2C /* RecipeData.swift */,
 				3DC7FCDB1EE3DFC400B2BC2C /* RecipeCell.swift */,
-				3D4CCA841ED51DE6002D54B0 /* RecipeDetailViewController.swift */,
+				3DC7FCDF1EE51A6E00B2BC2C /* stepData.swift */,
+				3DC7FCE11EE51C1700B2BC2C /* stepCell.swift */,
 				3DB3CCB21ECE365A00EA9E12 /* Assets.xcassets */,
 				3DB3CCB41ECE365A00EA9E12 /* LaunchScreen.storyboard */,
 				3DB3CCB71ECE365A00EA9E12 /* Info.plist */,
@@ -178,10 +184,12 @@
 				3DE01B4D1EE13147007C60C6 /* ProgressHUD.swift in Sources */,
 				3D680BA31EDE40820003C874 /* IngredientData.swift in Sources */,
 				3DC7FCB61EE29FDA00B2BC2C /* ManageIngredientViewController.swift in Sources */,
+				3DC7FCE21EE51C1700B2BC2C /* stepCell.swift in Sources */,
 				3DC7FCB41EE2247D00B2BC2C /* ManageTableCell.swift in Sources */,
 				3D4CCA851ED51DE6002D54B0 /* RecipeDetailViewController.swift in Sources */,
 				3DC7FCB81EE2A67D00B2BC2C /* userData.swift in Sources */,
 				3D46453B1EDCD92D00878363 /* AddIngredientsTableViewController.swift in Sources */,
+				3DC7FCE01EE51A6E00B2BC2C /* stepData.swift in Sources */,
 				3DC7FCDE1EE3E01300B2BC2C /* RecipeData.swift in Sources */,
 				3DC7FCDA1EE3DE5C00B2BC2C /* RecipeTableViewController.swift in Sources */,
 				3D46453D1EDCDD9400878363 /* IngredientsCell.swift in Sources */,
