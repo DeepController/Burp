@@ -20,28 +20,41 @@ class RecipeDetailViewController: UIViewController, UITableViewDelegate, UITable
 	let cellReuseIdentifier = "stepDetailCell"
 	var id = ""
 	var pic = ""
+	var url = ""
 	let loading = ProgressHUD(text: "Loading")
 	var stepDataCollection : [stepData] = []
 	
+	// MARK: - View Control
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 100
 		self.view.addSubview(loading)
 		getRecipe()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+	}
+	
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+		// Dispose of any resources that can be recreated.
+	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 	}
+	
+	@IBAction func sharePressed(_ sender: UIBarButtonItem) {
+		let textToShare = "This recipe is awesome! "
+		
+		if let myWebsite = URL(string: self.url) {
+			let objectsToShare : [Any] = [textToShare, myWebsite]
+			let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+			self.present(activityVC, animated: true, completion: nil)
+		}
+	}
+	
 	
 	// MARK: - Table View Config
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -103,6 +116,7 @@ class RecipeDetailViewController: UIViewController, UITableViewDelegate, UITable
 			self.downloadRecipeImage()
 			OperationQueue.main.addOperation {
 				self.name.text = (recipeInfo!["title"] as! String)
+				self.url = (recipeInfo!["spoonacularSourceUrl"] as! String)
 				print(self.name.text!)
 			}
 			let instructions = recipeInfo?["analyzedInstructions"] as! [[String : Any]]
@@ -154,16 +168,16 @@ class RecipeDetailViewController: UIViewController, UITableViewDelegate, UITable
 		task.resume()
 	}
 	
-
 	
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+	
+	// MARK: - Navigation
+	
+	// In a storyboard-based application, you will often want to do a little preparation before navigation
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "detailToComment" {
 			let dest = segue.destination as! commentTableViewController
 			dest.id = id
 		}
-    }
+	}
 	
 }

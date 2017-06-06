@@ -8,7 +8,7 @@
 
 import UIKit
 
-class addCommentViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class addCommentViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
 	
 	// MARK: - UIElements
 	
@@ -69,6 +69,7 @@ class addCommentViewController: UIViewController, UIPickerViewDelegate, UIPicker
 		commentField.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
 		commentField.layer.borderWidth = 1.0
 		commentField.layer.cornerRadius = 5
+		commentField.delegate = self
 		
 		// submit button config
 		submitButton.setTitle("Submitting", for: .disabled)
@@ -77,6 +78,16 @@ class addCommentViewController: UIViewController, UIPickerViewDelegate, UIPicker
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
+	}
+	
+	// MARK: - TextView config
+	
+	func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+		if(text == "\n") {
+			textView.resignFirstResponder()
+			return false
+		}
+		return true
 	}
 	
 	// MARK: - Actions
@@ -93,7 +104,11 @@ class addCommentViewController: UIViewController, UIPickerViewDelegate, UIPicker
 		}
 	}
 	
-	// Upload Data
+	@IBAction func cancelPressed(_ sender: UIBarButtonItem) {
+		self.navigationController?.dismiss(animated: true, completion: nil)
+	}
+	
+	// MARK: - Upload Data
 	func submitComment() {
 		var postString = "id=\(id)&account=\(username)&rating=\(ratingField.text!)&comment=\(commentField.text!)"
 		if imageChanged && selectedImage != nil {
