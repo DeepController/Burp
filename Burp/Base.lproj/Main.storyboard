@@ -45,7 +45,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q0I-wi-zmL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-823.20000000000005" y="122.78860569715144"/>
+            <point key="canvasLocation" x="-606" y="123"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -701,7 +701,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="7kG-uN-GHw">
-                        <barButtonItem key="leftBarButtonItem" title="Exit" id="BWK-uw-BUv"/>
+                        <barButtonItem key="leftBarButtonItem" title="Exit" id="BWK-uw-BUv">
+                            <connections>
+                                <action selector="logout:" destination="GDU-dm-TPo" id="vMc-Hu-Gov"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="JxZ-dk-ZSp">
                             <connections>
                                 <segue destination="bH2-QM-opk" kind="popoverPresentation" popoverAnchorBarButtonItem="JxZ-dk-ZSp" id="P1d-az-pbp">

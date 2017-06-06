@@ -36,9 +36,9 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 		}
 	}
 	
-//	@IBAction func logout(_ sender: UIBarButtonItem) {
-//		self.navigationController?.dismiss(animated: true, completion: nil)
-//	}
+	@IBAction func logout(_ sender: UIBarButtonItem) {
+		self.navigationController?.dismiss(animated: true, completion: nil)
+	}
 	
 	// MARK: - Retrieve Remote Data
 	
