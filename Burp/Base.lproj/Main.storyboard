@@ -63,7 +63,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" borderStyle="line" placeholder="saif" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uen-Qx-Jt1" customClass="LoginTextField" customModule="Burp" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" borderStyle="line" placeholder="Account" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uen-Qx-Jt1" customClass="LoginTextField" customModule="Burp" customModuleProvider="target">
                                 <rect key="frame" x="72" y="183" width="230" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -71,7 +71,7 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kdc-6D-Kcd" customClass="LoginTextField" customModule="Burp" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kdc-6D-Kcd" customClass="LoginTextField" customModule="Burp" customModuleProvider="target">
                                 <rect key="frame" x="72" y="262" width="230" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -166,8 +166,8 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wX0-Gf-1Yq">
-                                            <rect key="frame" x="196.5" y="51" width="42" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <rect key="frame" x="189" y="48.5" width="57.5" height="26.5"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -208,7 +208,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Add Ingredients" id="tWH-Y9-gI2">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="pZx-kN-5ll">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="pZx-kN-5ll">
                             <connections>
                                 <action selector="donePressed:" destination="FzN-dU-kQj" id="dsA-m3-b61"/>
                             </connections>
@@ -238,7 +238,7 @@
             </objects>
             <point key="canvasLocation" x="1097" y="123"/>
         </scene>
-        <!--Recipe Table View Controller-->
+        <!--Recipes-->
         <scene sceneID="BWA-cG-vSU">
             <objects>
                 <tableViewController id="A26-60-MNn" customClass="RecipeTableViewController" customModule="Burp" customModuleProvider="target" sceneMemberID="viewController">
@@ -286,7 +286,7 @@
                             <outlet property="delegate" destination="A26-60-MNn" id="PuD-DU-lVZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="aeq-Ba-cWG"/>
+                    <navigationItem key="navigationItem" title="Recipes" id="aeq-Ba-cWG"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZV-8B-c4a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -380,7 +380,13 @@
                             <constraint firstItem="NL8-ya-5Dp" firstAttribute="top" secondItem="AbG-vM-Nvj" secondAttribute="bottom" id="cHg-Zg-Uaz"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Detail" id="Lj1-7R-Abq"/>
+                    <navigationItem key="navigationItem" title="Detail" id="Lj1-7R-Abq">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="qkh-6g-nWG">
+                            <connections>
+                                <action selector="sharePressed:" destination="zF4-1s-qQi" id="7r6-X0-btP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="name" destination="9Pe-wQ-nPP" id="YcA-QP-6x4"/>
                         <outlet property="tableView" destination="zjA-QR-wFp" id="fgD-Zi-hlK"/>
@@ -459,7 +465,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Comments" id="zdv-Fp-6gB">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="aVn-Xe-yfz">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="aVn-Xe-yfz">
                             <connections>
                                 <segue destination="Arh-oa-5bC" kind="popoverPresentation" identifier="commentToAdd" popoverAnchorBarButtonItem="aVn-Xe-yfz" id="xM0-2J-WbH">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -559,14 +565,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Leave a Comment" id="A99-Ah-8PF">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="lU5-7S-uOQ">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nZL-Vv-8ae">
-                                <rect key="frame" x="16" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="avy-IZ-hAa">
                             <connections>
-                                <segue destination="Kka-M9-cZv" kind="show" id="Ntg-hA-6CR"/>
+                                <action selector="cancelPressed:" destination="ovf-fm-rjd" id="7Dx-cI-kCp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -621,28 +622,49 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="122.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uhj-aR-sqH">
-                                                    <rect key="frame" x="311" y="46" width="45" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Delete">
-                                                        <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="removePressed:" destination="GDU-dm-TPo" eventType="touchUpInside" id="tlY-TH-uLo"/>
-                                                    </connections>
-                                                </button>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cyS-gv-qDf" userLabel="IngredientPic">
-                                                    <rect key="frame" x="18" y="11" width="100" height="100"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PrT-ID-43S">
-                                                    <rect key="frame" x="143" y="41" width="160" height="40"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="B29-Kr-od0">
+                                                    <rect key="frame" x="18" y="11" width="339" height="100"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cyS-gv-qDf" userLabel="IngredientPic">
+                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="fOZ-Kp-lCA"/>
+                                                                <constraint firstAttribute="height" constant="100" id="wJ9-za-3nq"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PrT-ID-43S">
+                                                            <rect key="frame" x="100" y="37" width="171" height="26.5"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uhj-aR-sqH">
+                                                            <rect key="frame" x="271" y="35" width="68" height="30"/>
+                                                            <state key="normal" title="Delete">
+                                                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </state>
+                                                            <state key="disabled" title="Removing"/>
+                                                            <connections>
+                                                                <action selector="removePressed:" destination="GDU-dm-TPo" eventType="touchUpInside" id="tlY-TH-uLo"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="uhj-aR-sqH" firstAttribute="width" secondItem="B29-Kr-od0" secondAttribute="width" multiplier="0.2" id="0hR-K3-NlK"/>
+                                                        <constraint firstItem="PrT-ID-43S" firstAttribute="leading" secondItem="cyS-gv-qDf" secondAttribute="trailing" id="5ep-0B-yHQ"/>
+                                                        <constraint firstItem="uhj-aR-sqH" firstAttribute="leading" secondItem="PrT-ID-43S" secondAttribute="trailing" id="NvT-Wz-s72"/>
+                                                        <constraint firstItem="PrT-ID-43S" firstAttribute="leading" secondItem="cyS-gv-qDf" secondAttribute="trailing" id="afW-3P-M8r"/>
+                                                        <constraint firstItem="cyS-gv-qDf" firstAttribute="leading" secondItem="B29-Kr-od0" secondAttribute="leading" id="orC-sk-vmb"/>
+                                                        <constraint firstAttribute="trailing" secondItem="uhj-aR-sqH" secondAttribute="trailing" id="rk3-zq-cB0"/>
+                                                        <constraint firstItem="uhj-aR-sqH" firstAttribute="leading" secondItem="PrT-ID-43S" secondAttribute="trailing" id="snp-19-b7M"/>
+                                                    </constraints>
+                                                </stackView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="B29-Kr-od0" secondAttribute="trailing" constant="10" id="WNw-fg-Olz"/>
+                                                <constraint firstItem="B29-Kr-od0" firstAttribute="centerY" secondItem="bH7-KL-nAk" secondAttribute="centerY" id="bpL-iY-GEv"/>
+                                                <constraint firstItem="B29-Kr-od0" firstAttribute="leading" secondItem="bH7-KL-nAk" secondAttribute="leadingMargin" constant="10" id="p0L-uC-IcM"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="addButton" destination="uhj-aR-sqH" id="dmW-3d-EZ8"/>
@@ -660,13 +682,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wpl-0n-5Nr">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wpl-0n-5Nr">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.3529411764705882" green="0.81960784313725488" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                 <state key="normal" title="Find a Recipe">
                                     <color key="titleColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="disabled" title="Please add Ingredients">
+                                    <color key="titleColor" red="1" green="0.14959081088512372" blue="0.0086397835217312258" alpha="0.59182363013698636" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="A26-60-MNn" kind="show" identifier="manageToRecipe" id="PiZ-bX-EIf"/>
@@ -676,11 +701,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="7kG-uN-GHw">
-                        <barButtonItem key="leftBarButtonItem" title="&lt; Exit" id="dXA-8R-RbJ">
-                            <connections>
-                                <action selector="logout:" destination="GDU-dm-TPo" id="ddT-aO-agU"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Exit" id="BWK-uw-BUv"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="JxZ-dk-ZSp">
                             <connections>
                                 <segue destination="bH2-QM-opk" kind="popoverPresentation" popoverAnchorBarButtonItem="JxZ-dk-ZSp" id="P1d-az-pbp">
@@ -704,7 +725,4 @@
         <image name="login" width="562" height="1000"/>
         <image name="start" width="562" height="1000"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Ntg-hA-6CR"/>
-    </inferredMetricsTieBreakers>
 </document>

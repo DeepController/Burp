@@ -23,7 +23,11 @@ class IngredientsCell: UITableViewCell {
 	// MARK: - Functions
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+		if addButton.titleLabel?.text == "Removing" {
+			addButton.setTitle("Add", for: .normal)
+		} else if addButton.titleLabel?.text == "Adding" {
+			addButton.setTitle("Delete", for: .normal)
+		}
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

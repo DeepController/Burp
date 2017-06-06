@@ -25,22 +25,20 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 	//MARK: - UIElement Action
 	
 	@IBAction func removePressed(_ sender: UIButton) {
-		sender.setTitle("Removing", for: .normal)
 		sender.isEnabled = false
-		if let cell = sender.superview?.superview as? ManageTableCell {
+		if let cell = sender.superview?.superview?.superview as? ManageTableCell {
 			let indexPath = tableView.indexPath(for: cell)!
 			ingDataCollection.remove(at: indexPath.row)
 			if ingDataCollection.count == 0 {
 				find.isEnabled = false
-				find.setTitle("Please add Ingredients", for: .normal)
 			}
 			deleteIngredientOnServer(cell: cell, index: indexPath)
 		}
 	}
 	
-	@IBAction func logout(_ sender: UIBarButtonItem) {
-		self.navigationController?.dismiss(animated: true, completion: nil)
-	}
+//	@IBAction func logout(_ sender: UIBarButtonItem) {
+//		self.navigationController?.dismiss(animated: true, completion: nil)
+//	}
 	
 	// MARK: - Retrieve Remote Data
 	
@@ -83,7 +81,6 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 			OperationQueue.main.addOperation {
 				if self.ingDataCollection.count > 0 {
 					self.find.isEnabled = true
-					self.find.setTitle("Find Recipe", for: .normal)
 				}
 				self.tableView.reloadData()
 				self.loading.removeFromSuperview()
@@ -155,6 +152,7 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 				}
 			}
 			OperationQueue.main.addOperation {
+				print("deleted")
 				self.tableView.deleteRows(at: [index], with: .automatic)
 			}
 		}
@@ -180,6 +178,7 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 		cell.name.text = currentIngredientData.name
 		cell.username = username
 		cell.picname = currentIngredientData.picName
+		cell.addButton.isEnabled = true
 		// Deal with image, if image cached, no download
 		let imagePath = NSHomeDirectory() + "/Library/Caches/\(currentIngredientData.picName)"
 		if FileManager.default.fileExists(atPath: imagePath) {
@@ -196,9 +195,9 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		self.viewDidLoad()
-		find.isEnabled = false
-		find.setTitle("Please add Ingredients", for: .normal)
+//		self.viewDidLoad()
+		self.view.addSubview(loading)
+		downloadIngredients()
 	}
     
     func addNavBarImage(){
@@ -223,11 +222,9 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.addSubview(loading)
 		tableView.delegate = self
 		tableView.dataSource = self
-		self.navigationItem.hidesBackButton = true
-		downloadIngredients()
+//		downloadIngredients()
         addNavBarImage();
 	}
 	
@@ -238,9 +235,11 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "manageToRecipe" {
-			var list : String = ingDataCollection[0].name
-			for i in 1..<ingDataCollection.count {
-				list.append("%2C\(ingDataCollection[i].name)")
+			var list : String = ingDataCollection[0].name.replacingOccurrences(of: " ", with: "+")
+			if ingDataCollection.count > 1 {
+				for i in 1..<ingDataCollection.count {
+					list.append("%2C\(ingDataCollection[i].name.replacingOccurrences(of: " ", with: "+"))")
+				}
 			}
 			let dest = segue.destination as! RecipeTableViewController
 			dest.ingList = list

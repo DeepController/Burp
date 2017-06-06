@@ -272,7 +272,7 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 			downloadIngredientImage(ofName: currentIngredientData.picName, cell: cell)
 		}
 		if currentIngredientData.added {
-			cell.addButton.setTitle("Remove", for: .normal)
+			cell.addButton.setTitle("Delete", for: .normal)
 			cell.addButton.setTitleColor(UIColor.red, for: .normal)
 		} else {
 			cell.addButton.setTitle("Add", for: .normal)
