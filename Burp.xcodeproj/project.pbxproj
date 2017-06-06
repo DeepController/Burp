@@ -30,6 +30,7 @@
 		3DC7FCEA1EE5434200B2BC2C /* addCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7FCE91EE5434200B2BC2C /* addCommentViewController.swift */; };
 		3DE01B4D1EE13147007C60C6 /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE01B4C1EE13147007C60C6 /* ProgressHUD.swift */; };
 		3DFECFC21ED6003400EA4BA3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFECFC11ED6003400EA4BA3 /* LoginViewController.swift */; };
+		91EC0D821EE61DBE0034B5B2 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC0D811EE61DBE0034B5B2 /* LoginTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		3DC7FCE91EE5434200B2BC2C /* addCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addCommentViewController.swift; sourceTree = "<group>"; };
 		3DE01B4C1EE13147007C60C6 /* ProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
 		3DFECFC11ED6003400EA4BA3 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		91EC0D811EE61DBE0034B5B2 /* LoginTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 			children = (
 				3DB3CCAB1ECE365A00EA9E12 /* AppDelegate.swift */,
 				3DB3CCAD1ECE365A00EA9E12 /* ViewController.swift */,
+				91EC0D811EE61DBE0034B5B2 /* LoginTextField.swift */,
 				3DB3CCAF1ECE365A00EA9E12 /* Main.storyboard */,
 				3DC7FCB71EE2A67D00B2BC2C /* userData.swift */,
 				3DFECFC11ED6003400EA4BA3 /* LoginViewController.swift */,
@@ -197,6 +200,7 @@
 				3DE01B4D1EE13147007C60C6 /* ProgressHUD.swift in Sources */,
 				3D680BA31EDE40820003C874 /* IngredientData.swift in Sources */,
 				3DC7FCB61EE29FDA00B2BC2C /* ManageIngredientViewController.swift in Sources */,
+				91EC0D821EE61DBE0034B5B2 /* LoginTextField.swift in Sources */,
 				3DC7FCE21EE51C1700B2BC2C /* stepCell.swift in Sources */,
 				3DC7FCE61EE53BFF00B2BC2C /* commentTableViewController.swift in Sources */,
 				3DC7FCB41EE2247D00B2BC2C /* ManageTableCell.swift in Sources */,

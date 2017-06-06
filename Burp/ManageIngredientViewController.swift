@@ -2,7 +2,7 @@
 //  ManageIngredientViewController.swift
 //  Burp
 //
-//  Created by William on 6/1/17.
+//  Created by Saif Mustafa on 6/5/17.
 //  Copyright © 2017 Yang Wang. All rights reserved.
 //
 
@@ -200,6 +200,26 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 		find.isEnabled = false
 		find.setTitle("Please add Ingredients", for: .normal)
 	}
+    
+    func addNavBarImage(){
+        
+        let navController = navigationController!;
+        
+        let image = #imageLiteral(resourceName: "logo");
+        let imageView = UIImageView(image: image);
+        
+        let bannerWidth = navController.navigationBar.frame.size.width;
+        let bannerHeight = navController.navigationBar.frame.size.height;
+        
+        let bannerX = bannerWidth / 2 - image.size.width / 2;
+        let bannerY = bannerHeight / 2 - image.size.height / 2;
+        
+        imageView.frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth, height: bannerHeight);
+        imageView.contentMode = .scaleAspectFit;
+        
+        navigationItem.titleView = imageView;
+        
+    }
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -208,6 +228,7 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 		tableView.dataSource = self
 		self.navigationItem.hidesBackButton = true
 		downloadIngredients()
+        addNavBarImage();
 	}
 	
 	override func didReceiveMemoryWarning() {

@@ -22,6 +22,7 @@ class RecipeTableViewController: UITableViewController {
 		tableView.dataSource = self
 		self.view.addSubview(searching)
 		searchRecipe()
+  
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -135,7 +136,6 @@ class RecipeTableViewController: UITableViewController {
 		// #warning Incomplete implementation, return the number of rows
 		return recDataCollection.count
 	}
-	
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell : RecipeCell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! RecipeCell
