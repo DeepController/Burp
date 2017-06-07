@@ -254,7 +254,7 @@ class AddIngredientsTableViewController: ViewController, UITableViewDelegate, UI
 		
 		// Configure the cell...
 		let currentIngredientData = ingDataCollection[indexPath.row]
-		cell.name.text = currentIngredientData.name
+		cell.name.text = currentIngredientData.name.capitalized
 		cell.username = username
 		cell.picname = currentIngredientData.picName
 		// Deal with image, if image cached, no download

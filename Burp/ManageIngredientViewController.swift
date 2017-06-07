@@ -175,7 +175,7 @@ class ManageIngredientViewController: ViewController, UITableViewDelegate, UITab
 		
 		// Configure the cell...
 		let currentIngredientData = ingDataCollection[indexPath.row]
-		cell.name.text = currentIngredientData.name
+		cell.name.text = currentIngredientData.name.capitalized
 		cell.username = username
 		cell.picname = currentIngredientData.picName
 		cell.addButton.isEnabled = true
